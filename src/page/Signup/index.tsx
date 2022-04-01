@@ -1,33 +1,26 @@
 import React, { useState } from 'react'
 
-/* Axios */
+/* axios */
 import axios from 'axios'
 
-/* Link */
-import { Link } from 'react-router-dom'
-
 /* Components */
+import Alert from '../../components/Alert'
 import Button from '../../components/Button'
+
+/* react-router */
+import { useNavigate, Link } from 'react-router-dom'
 
 /* Styled */
 import * as S from './styled'
 
-/* react-router */
-import { useNavigate } from 'react-router-dom'
-
-/* Alert */
-import Alert from '../../components/Alert'
-
-/* 
- Type Signin
-*/
-
-type SigninProps = {
+type SignupProps = {
   email: string
   password: string
+  name: string
+  image: string
 }
 
-const Signin: React.FC = () => {
+const Signup = () => {
   /* navigate */
   const navigate = useNavigate()
 
@@ -35,11 +28,13 @@ const Signin: React.FC = () => {
   const [isSubmited, setIsSubmited] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [name, setName] = useState<string>('')
+  const [image, setImage] = useState<string>('')
   const [message, setMessage] = useState({ show: false, alert: '' })
 
-  const signin = async (data: SigninProps) =>
+  const signup = async (data: SignupProps) =>
     await axios.post(
-      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login`,
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up`,
       data
     )
 
@@ -47,8 +42,8 @@ const Signin: React.FC = () => {
     e.preventDefault()
     setIsSubmited(true)
     try {
-      await signin({ email, password })
-      navigate('/hoje')
+      await signup({ email, password, name, image })
+      navigate('/')
     } catch (error: any) {
       setMessage({
         alert: error?.response.data.message,
@@ -59,15 +54,15 @@ const Signin: React.FC = () => {
   }
 
   return (
-    <S.SigninContainer>
+    <S.SignupContainer>
       <Alert show={message.show} type="error" setshowAlert={setMessage}>
         {message.alert}
       </Alert>
-      <S.SigninArea>
-        <S.SigninBanner>
+      <S.SignupArea>
+        <S.SignupBanner>
           <img src="/assets/img/logo.png" alt="logo" />
-        </S.SigninBanner>
-        <S.SigninAreaInputs>
+        </S.SignupBanner>
+        <S.SignupAreaInputs>
           <form method="post" onSubmit={(e) => handleSubmit(e)}>
             <input
               type="email"
@@ -87,13 +82,31 @@ const Signin: React.FC = () => {
               placeholder="senha"
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
-            <Button disabled={isSubmited}>Entrar</Button>
-            <Link to="/signup">Não tem uma conta? Cadastre-se!</Link>
+            <input
+              type="text"
+              value={name}
+              name="email"
+              disabled={isSubmited}
+              required
+              placeholder="nome"
+              onChange={(e) => setName(e.currentTarget.value)}
+            />
+            <input
+              type="url"
+              value={image}
+              name="foto"
+              disabled={isSubmited}
+              required
+              placeholder="foto"
+              onChange={(e) => setImage(e.currentTarget.value)}
+            />
+            <Button disabled={isSubmited}>Cadastrar</Button>
+            <Link to="/">Já tem uma conta? Faça Login!</Link>
           </form>
-        </S.SigninAreaInputs>
-      </S.SigninArea>
-    </S.SigninContainer>
+        </S.SignupAreaInputs>
+      </S.SignupArea>
+    </S.SignupContainer>
   )
 }
 
-export default Signin
+export default Signup

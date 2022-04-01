@@ -1,22 +1,22 @@
 import styled from 'styled-components'
 
-export const SigninContainer = styled.div`
+export const SignupContainer = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 `
-export const SigninArea = styled.div`
+export const SignupArea = styled.div`
   width: 100%;
   max-width: 303px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `
-export const SigninBanner = styled.div``
+export const SignupBanner = styled.div``
 
-export const SigninAreaInputs = styled.div`
+export const SignupAreaInputs = styled.div`
   margin-top: 30px;
 
   & input {
