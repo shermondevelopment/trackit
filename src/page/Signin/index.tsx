@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 
 /* Axios */
 import axios from 'axios'
@@ -18,6 +18,9 @@ import { useNavigate } from 'react-router-dom'
 /* Alert */
 import Alert from '../../components/Alert'
 
+/* Context */
+import { AppTrackItContext } from '../../context/TrackItContext'
+
 /* 
  Type Signin
 */
@@ -30,6 +33,9 @@ type SigninProps = {
 const Signin: React.FC = () => {
   /* navigate */
   const navigate = useNavigate()
+
+  /* Context */
+  const { dispatch } = useContext(AppTrackItContext)
 
   /* state */
   const [isSubmited, setIsSubmited] = useState<boolean>(false)
@@ -47,8 +53,10 @@ const Signin: React.FC = () => {
     e.preventDefault()
     setIsSubmited(true)
     try {
-      await signin({ email, password })
-      navigate('/hoje')
+      const response = await signin({ email, password })
+      dispatch({ type: 'addFoto', payload: { foto: response.data.image } })
+      localStorage.setItem('user', JSON.stringify(response.data))
+      navigate('/today')
     } catch (error: any) {
       setMessage({
         alert: error?.response.data.message,
@@ -57,6 +65,20 @@ const Signin: React.FC = () => {
       setIsSubmited(false)
     }
   }
+
+  const userIsLogged = () => {
+    const user = JSON.parse(localStorage.getItem('user') || '')
+    if (user.token) {
+      dispatch({ type: 'addName', payload: { name: user.name } })
+      dispatch({ type: 'addFoto', payload: { foto: user.image } })
+      dispatch({ type: 'addEmail', payload: { email: user.email } })
+      navigate('/today')
+    }
+  }
+
+  useEffect(() => {
+    userIsLogged()
+  }, [])
 
   return (
     <S.SigninContainer>
