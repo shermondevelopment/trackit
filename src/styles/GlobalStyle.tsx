@@ -7,6 +7,9 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Lexend Deca', sans-serif;
   }
+  body {
+    background: #E5E5E5;
+  }
 `
 
 export default GlobalStyle
