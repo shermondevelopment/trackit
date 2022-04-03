@@ -197,7 +197,7 @@ const Habits: React.FC = () => {
           </S.HabitsAlert>
         )}
       </S.Main>
-      <Footer />
+      <Footer percentu={state.percentu} />
     </>
   )
 }

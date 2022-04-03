@@ -116,7 +116,7 @@ const Historic: React.FC = () => {
             </S.InfoHabits>
           ))}
       </S.Main>
-      <Footer />
+      <Footer percentu={state.percentu} />
     </>
   )
 }

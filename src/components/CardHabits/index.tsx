@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 /* styled */
 import * as S from './styled'
@@ -9,8 +9,8 @@ import { BsCheckLg } from 'react-icons/bs'
 //* axios */
 import axios from 'axios'
 
-/* headers */
-import headers from '../../settings/header'
+/* context */
+import { AppTrackItContext } from '../../context/TrackItContext'
 
 type PropsCardHabits = {
   name: string
@@ -33,6 +33,15 @@ const CardHabits: React.FC<PropsCardHabits> = ({
   setTotalConcluded,
 }) => {
   const [markDone, setMarkDone] = useState<boolean>(done)
+  /* context */
+  const { state } = useContext(AppTrackItContext)
+
+  const infoUser =
+    localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
+
+  const headers = {
+    Authorization: `Bearer ${infoUser.token || state.token}`,
+  }
 
   const defineChecked = async () => {
     /*  if the habit is not marked */
@@ -41,7 +50,9 @@ const CardHabits: React.FC<PropsCardHabits> = ({
       await axios.post(
         `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,
         {},
-        { headers }
+        {
+          headers,
+        }
       )
     }
   }

@@ -13,7 +13,6 @@ import axios from 'axios'
 import * as S from './styled'
 
 /* settings */
-import headers from '../../settings/header'
 
 /* Components */
 import Header from '../../components/Header'
@@ -37,7 +36,7 @@ const Today = () => {
   const percentu = Math.floor((100 * totalConcluded) / totalHabits)
 
   /* context */
-  const { state } = useContext(AppTrackItContext)
+  const { state, dispatch } = useContext(AppTrackItContext)
 
   const infoUser =
     localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
@@ -61,6 +60,10 @@ const Today = () => {
           )
       })
   }, [])
+
+  useEffect(() => {
+    dispatch({ type: 'addPercentu', payload: { percentu } })
+  }, [percentu])
 
   return (
     <>
