@@ -14,20 +14,23 @@ const Footer: React.FC = () => {
   return (
     <S.Footer>
       <Link to="/habits">Hábitos</Link>
-      <S.ProgressBar>
-        <CircularProgressbar
-          value={30}
-          text="Hoje"
-          backgroundPadding={30}
-          styles={buildStyles({
-            backgroundColor: 'green',
-            textSize: '18px',
-            pathColor: '#fff',
-            trailColor: '#52B6FF',
-            textColor: '#FFF',
-          })}
-        />
-      </S.ProgressBar>
+      <Link to="/today">
+        <S.ProgressBar>
+          <CircularProgressbar
+            value={30}
+            text="Hoje"
+            backgroundPadding={30}
+            styles={buildStyles({
+              backgroundColor: 'green',
+              textSize: '18px',
+              pathColor: '#fff',
+              trailColor: '#52B6FF',
+              textColor: '#FFF',
+            })}
+          />
+        </S.ProgressBar>
+      </Link>
+
       <Link to="/habits">Histórico</Link>
     </S.Footer>
   )

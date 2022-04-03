@@ -67,11 +67,13 @@ const Signin: React.FC = () => {
   }
 
   const userIsLogged = () => {
-    const user = JSON.parse(localStorage.getItem('user') || '')
-    if (user.token) {
+    const user =
+      localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
+    if (user?.token) {
       dispatch({ type: 'addName', payload: { name: user.name } })
       dispatch({ type: 'addFoto', payload: { foto: user.image } })
       dispatch({ type: 'addEmail', payload: { email: user.email } })
+      dispatch({ type: 'addToken', payload: { token: user.token } })
       navigate('/today')
     }
   }

@@ -3,6 +3,8 @@ import styled from 'styled-components'
 export const Main = styled.main`
   margin-top: 70px;
   padding: 28px 17px;
+  background-color: #f2f2f2;
+  min-height: calc(100vh - 140px);
 `
 
 export const InfoToday = styled.div`

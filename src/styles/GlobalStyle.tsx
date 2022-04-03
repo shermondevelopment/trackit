@@ -8,7 +8,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Lexend Deca', sans-serif;
   }
   body {
-    background: #E5E5E5;
+    max-height: calc(100vh - 140px);
+    scrollbar-width: none;
   }
 `
 

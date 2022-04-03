@@ -1,8 +1,12 @@
 import styled from 'styled-components'
 
-export const Button = styled.button<{ disabled: boolean }>`
-  width: 303px;
-  height: 45px;
+export const Button = styled.button<{
+  disabled: boolean
+  width?: number
+  height?: number
+}>`
+  width: ${(props) => (props.width ? props.width : '303')}px;
+  height: ${(props) => (props.height ? props.height : '45')}px;
   background: #52b6ff;
   border-radius: 4px;
   color: #fff;
