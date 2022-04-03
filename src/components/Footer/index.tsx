@@ -10,14 +10,18 @@ import 'react-circular-progressbar/dist/styles.css'
 /* router */
 import { Link } from 'react-router-dom'
 
-const Footer: React.FC = () => {
+type FooterProps = {
+  percentu?: number
+}
+
+const Footer: React.FC<FooterProps> = ({ percentu }) => {
   return (
     <S.Footer>
       <Link to="/habits">Hábitos</Link>
       <Link to="/today">
         <S.ProgressBar>
           <CircularProgressbar
-            value={30}
+            value={percentu}
             text="Hoje"
             backgroundPadding={30}
             styles={buildStyles({
@@ -31,7 +35,7 @@ const Footer: React.FC = () => {
         </S.ProgressBar>
       </Link>
 
-      <Link to="/habits">Histórico</Link>
+      <Link to="/historic">Histórico</Link>
     </S.Footer>
   )
 }

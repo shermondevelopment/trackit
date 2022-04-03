@@ -24,4 +24,5 @@ export const TodayPercentu = styled.span`
 
 export const AreaHabits = styled.div`
   margin-top: 28px;
+  margin-bottom: 100px;
 `

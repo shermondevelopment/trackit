@@ -38,6 +38,10 @@ export const CardHabitsSequence = styled.div`
 export const SequenceInfo = styled.span`
   font-size: 13px;
   color: #666666;
+
+  .sequence {
+    color: #8fc549;
+  }
 `
 export const CardHabitsTitle = styled.span`
   color: #666666;

@@ -18,6 +18,8 @@ type PropsCardHabits = {
   id: number
   done: boolean
   concluded: number
+  currentSequence: number
+  highestSequence: number
   setTotalConcluded: React.Dispatch<React.SetStateAction<number>>
 }
 
@@ -25,6 +27,8 @@ const CardHabits: React.FC<PropsCardHabits> = ({
   id,
   done,
   name,
+  currentSequence,
+  highestSequence,
   concluded,
   setTotalConcluded,
 }) => {
@@ -60,8 +64,22 @@ const CardHabits: React.FC<PropsCardHabits> = ({
         <S.CardHabitsInfo>
           <S.CardHabitsTitle>{name}</S.CardHabitsTitle>
           <S.CardHabitsSequence>
-            <S.SequenceInfo>Sequência atual: 3 dias</S.SequenceInfo>
-            <S.SequenceInfo>Seu recorder: 5 dias</S.SequenceInfo>
+            <S.SequenceInfo>
+              Sequência atual:{' '}
+              <span className={markDone || done ? 'sequence' : ''}>
+                {markDone && currentSequence + 1} &nbsp;dias
+              </span>{' '}
+            </S.SequenceInfo>
+            <S.SequenceInfo>
+              Seu recorder:{' '}
+              <span
+                className={
+                  currentSequence === highestSequence ? 'sequence' : ''
+                }
+              >
+                {highestSequence} dias
+              </span>{' '}
+            </S.SequenceInfo>
           </S.CardHabitsSequence>
         </S.CardHabitsInfo>
         <S.CardHabitsChecked

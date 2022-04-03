@@ -6,6 +6,7 @@ import Signin from './page/Signin'
 import Signup from './page/Signup'
 import Today from './page/Today'
 import Habits from './page/Habits'
+import Historic from './page/Historic'
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/today" element={<Today />} />
         <Route path="/habits" element={<Habits />} />
+        <Route path="/historic" element={<Historic />} />
       </Routes>
     </BrowserRouter>
   )

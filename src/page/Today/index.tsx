@@ -31,7 +31,7 @@ const Today = () => {
   const [totalConcluded, setTotalConcluded] = useState<number>(0)
   const [totalHabits, setTotaHabits] = useState<number>(0)
 
-  const percentu = (100 * totalConcluded) / totalHabits
+  const percentu = Math.floor((100 * totalConcluded) / totalHabits)
 
   useEffect(() => {
     axios
@@ -69,6 +69,8 @@ const Today = () => {
             habitsToday.map((item) => (
               <CardHabits
                 name={item.name}
+                currentSequence={item.currentSequence}
+                highestSequence={item.highestSequence}
                 checked={item.done}
                 key={item.id}
                 id={item.id}
@@ -79,7 +81,7 @@ const Today = () => {
             ))}
         </S.AreaHabits>
       </S.Main>
-      <Footer />
+      <Footer percentu={percentu} />
     </>
   )
 }
