@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Main = styled.main`
   margin-top: 70px;
   padding: 28px 17px;
-  background-color: #fff;
+  background-color: #FFF;
   min-height: calc(100vh - 140px);
   padding-bottom: 100px;
 

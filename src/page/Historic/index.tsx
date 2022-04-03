@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 /* dayjs */
 import dayjs from 'dayjs'
@@ -17,8 +17,8 @@ import Header from '../../components/Header'
 /** styled */
 import * as S from './styled'
 
-/*headers axios */
-import headers from '../../settings/header'
+/* context */
+import { AppTrackItContext } from '../../context/TrackItContext'
 
 /* axios */
 import axios from 'axios'
@@ -39,11 +39,20 @@ const Historic: React.FC = () => {
     }
   }
 
+  const { state } = useContext(AppTrackItContext)
+
+  const user =
+    localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
+
   useEffect(() => {
     axios
       .get(
         `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/history/daily`,
-        { headers }
+        {
+          headers: {
+            Authorization: `Bearer ${user.token || state.token}`,
+          },
+        }
       )
       .then((historic) => setHistoric(historic.data))
   }, [])

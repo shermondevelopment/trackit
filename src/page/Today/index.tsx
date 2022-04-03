@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+
+/* conext */
+import { AppTrackItContext } from '../../context/TrackItContext'
 
 /* dayjs */
 import dayjs from 'dayjs'
@@ -33,11 +36,21 @@ const Today = () => {
 
   const percentu = Math.floor((100 * totalConcluded) / totalHabits)
 
+  /* context */
+  const { state } = useContext(AppTrackItContext)
+
+  const infoUser =
+    localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
+
   useEffect(() => {
     axios
       .get(
         `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`,
-        { headers }
+        {
+          headers: {
+            Authorization: `Bearer ${state.token || infoUser.token}`,
+          },
+        }
       )
       .then((habits) => {
         setHabitsToday(habits.data),
