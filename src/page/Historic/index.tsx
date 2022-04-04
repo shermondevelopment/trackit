@@ -26,6 +26,7 @@ import axios from 'axios'
 const Historic: React.FC = () => {
   const [historic, setHistoric] = useState(null)
   const [value, onChange] = useState(new Date())
+  const [habitsInfo, setHabitsInfo] = useState(null)
   const [historicSelected, setHistoricSelected] = useState(null)
 
   const captureDateClicked = (date: Date) => {
@@ -37,6 +38,17 @@ const Historic: React.FC = () => {
     if (arrayHistoric) {
       setHistoricSelected(arrayHistoric)
     }
+  }
+
+  const amountNewStructureArray = (historic: any) => {
+    const array: any = []
+    historic.map((item: any) => {
+      item.habits.map((habits: any) => {
+        array.push({ day: item.day, done: habits.done })
+      })
+    })
+    console.log(array)
+    setHabitsInfo(array)
   }
 
   const { state } = useContext(AppTrackItContext)
@@ -54,7 +66,9 @@ const Historic: React.FC = () => {
           },
         }
       )
-      .then((historic) => setHistoric(historic.data))
+      .then((historic) => {
+        setHistoric(historic.data), amountNewStructureArray(historic.data)
+      })
   }, [])
 
   return (
@@ -68,21 +82,24 @@ const Historic: React.FC = () => {
           className={['myCalendar']}
           formatDay={(locale, date) => dayjs(date).format('DD')}
           tileClassName={({ date, view }) => {
-            if (historic) {
+            if (habitsInfo) {
               if (
-                historic.find(
-                  (x: any) => x.day == dayjs(date).format('DD/MM/YYYY')
+                habitsInfo.find(
+                  (habit: any) =>
+                    habit.day === dayjs(date).format('DD/MM/YYYY') &&
+                    habit.done === true
                 )
               ) {
-                if (
-                  historic.find((f: any) =>
-                    f.habits.find((s: any) => s.done === false)
-                  )
-                ) {
-                  return 'failed'
-                } else {
-                  return 'highlight'
-                }
+                return 'highlight'
+              }
+              if (
+                habitsInfo.find(
+                  (habit: any) =>
+                    habit.day === dayjs(date).format('DD/MM/YYYY') &&
+                    habit.done === false
+                )
+              ) {
+                return 'failed'
               }
             }
           }}
