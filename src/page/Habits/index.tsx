@@ -24,6 +24,7 @@ import axios from 'axios'
 
 /* header axios */
 import headers from '../../settings/header'
+import { stat } from 'fs'
 
 type HabitsData = {
   id: number
@@ -88,6 +89,17 @@ const Habits: React.FC = () => {
       setTitleHabits('')
       /* clean days habits  */
       dispatch({ type: 'removeHabits', payload: { habits: [] } })
+      dispatch({
+        type: 'addPercentu',
+        payload: {
+          percentu: (100 * state.concluded) / (state.totalHabits + 1),
+        },
+      })
+      dispatch({
+        type: 'addTotalHabits',
+        payload: { totalHabits: state.totalHabits + 1 },
+      })
+      console.log(state)
     } catch (error) {
       setDisabled(false)
     }

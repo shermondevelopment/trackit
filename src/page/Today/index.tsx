@@ -63,6 +63,14 @@ const Today = () => {
 
   useEffect(() => {
     dispatch({ type: 'addPercentu', payload: { percentu } })
+    dispatch({
+      type: 'addConcluded',
+      payload: { concluded: totalConcluded },
+    })
+    dispatch({
+      type: 'addTotalHabits',
+      payload: { totalHabits: totalHabits },
+    })
   }, [percentu])
 
   return (
@@ -97,7 +105,7 @@ const Today = () => {
             ))}
         </S.AreaHabits>
       </S.Main>
-      <Footer percentu={percentu} />
+      <Footer percentu={state.percentu || percentu} />
     </>
   )
 }

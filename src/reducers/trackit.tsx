@@ -4,6 +4,8 @@ export type StateProps = {
   foto: string
   token: string
   percentu: number
+  concluded: number
+  totalHabits: number
   titleHabits: string
   habits?: Array<number>
 }
@@ -15,6 +17,8 @@ type StateAction = {
   token: string
   title: string
   percentu: number
+  concluded: number
+  totalHabits: number
   habits: Array<number>
 }
 
@@ -24,6 +28,8 @@ export const initialState: StateProps = {
   foto: '',
   token: '',
   percentu: 0,
+  concluded: 0,
+  totalHabits: 0,
   titleHabits: '',
   habits: [],
 }
@@ -47,6 +53,10 @@ export const useReducerTrackIt = (state: StateProps, action: ActionProps) => {
       return { ...state, token: action.payload.token }
     case 'addPercentu':
       return { ...state, percentu: action.payload.percentu }
+    case 'addConcluded':
+      return { ...state, concluded: action.payload.concluded }
+    case 'addTotalHabits':
+      return { ...state, totalHabits: action.payload.totalHabits }
     case 'addHabits':
       return {
         ...state,
