@@ -33,6 +33,7 @@ const CardHabits: React.FC<PropsCardHabits> = ({
   setTotalConcluded,
 }) => {
   const [markDone, setMarkDone] = useState<boolean>(done)
+  const [sequence, setSequence] = useState(currentSequence)
   /* context */
   const { state } = useContext(AppTrackItContext)
 
@@ -41,6 +42,11 @@ const CardHabits: React.FC<PropsCardHabits> = ({
 
   const headers = {
     Authorization: `Bearer ${infoUser.token || state.token}`,
+  }
+
+  const defineNewSequence = () => {
+    !markDone && setSequence(sequence + 1)
+    markDone && sequence !== 0 && setSequence(sequence - 1)
   }
 
   const defineChecked = async () => {
@@ -78,8 +84,8 @@ const CardHabits: React.FC<PropsCardHabits> = ({
             <S.SequenceInfo>
               Sequência atual:{' '}
               <span className={markDone || done ? 'sequence' : ''}>
-                {markDone && currentSequence + 1} &nbsp;dias
-              </span>{' '}
+                {sequence} &nbsp;dias
+              </span>
             </S.SequenceInfo>
             <S.SequenceInfo>
               Seu recorder:{' '}
@@ -96,7 +102,10 @@ const CardHabits: React.FC<PropsCardHabits> = ({
         <S.CardHabitsChecked
           checked={markDone}
           onClick={() => {
-            defineChecked(), markDone && removeChecked(), setMarkDone(!markDone)
+            defineChecked(),
+              markDone && removeChecked(),
+              setMarkDone(!markDone),
+              defineNewSequence()
           }}
         >
           <BsCheckLg size={0} color="#fff" />
